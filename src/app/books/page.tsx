@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function CatalogPage() {
+export default function BooksPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("all");
   const [filteredBooks, setFilteredBooks] = useState<Book[]>(books);

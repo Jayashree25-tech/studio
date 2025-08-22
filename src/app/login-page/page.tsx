@@ -42,7 +42,7 @@ export default function LoginPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     login(values.name);
-    router.push("/catalog");
+    router.push("/books");
   }
 
   return (

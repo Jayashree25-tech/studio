@@ -20,7 +20,7 @@ export default function Home() {
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <Link href="/catalog">
+            <Link href="/books">
               Browse as Guest
             </Link>
           </Button>

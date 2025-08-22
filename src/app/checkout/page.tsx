@@ -48,7 +48,7 @@ export default function CheckoutPage() {
       description: "Your eBooks are now available. Thank you for your purchase.",
     });
     clearCart();
-    router.push("/catalog");
+    router.push("/books");
   }
 
   return (
