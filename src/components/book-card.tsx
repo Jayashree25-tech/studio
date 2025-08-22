@@ -42,7 +42,7 @@ export function BookCard({ book }: BookCardProps) {
         <CardDescription className="text-sm">{book.author}</CardDescription>
       </CardContent>
       <CardFooter className="p-4 flex justify-between items-center">
-        <p className="font-bold text-lg text-primary">${book.price.toFixed(2)}</p>
+        <p className="font-bold text-lg text-primary">₹{book.price.toFixed(2)}</p>
         <Button onClick={handleAddToCart} disabled={isInCart} variant={isInCart ? "outline" : "default"} size="sm" className="bg-accent hover:bg-accent/90 disabled:bg-primary/80">
           {isInCart ? <Check className="mr-2 h-4 w-4" /> : <ShoppingCart className="mr-2 h-4 w-4" />}
           {isInCart ? 'Added' : 'Add to Cart'}

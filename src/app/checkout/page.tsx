@@ -17,7 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { useCart } from "@/hooks/use-cart";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { CreditCard, DollarSign } from "lucide-react";
+import { CreditCard, IndianRupee } from "lucide-react";
 import Image from "next/image";
 
 const formSchema = z.object({
@@ -78,7 +78,7 @@ export default function CheckoutPage() {
                   )} />
                 </div>
                 <Button type="submit" className="w-full mt-4 bg-accent hover:bg-accent/90 text-accent-foreground">
-                  Pay ${totalPrice.toFixed(2)}
+                  Pay ₹{totalPrice.toFixed(2)}
                 </Button>
               </form>
             </Form>
@@ -86,7 +86,7 @@ export default function CheckoutPage() {
         </Card>
         <Card className="w-full shadow-lg bg-card/80 backdrop-blur-sm">
            <CardHeader>
-            <CardTitle className="flex items-center gap-2"><DollarSign/>Order Summary</CardTitle>
+            <CardTitle className="flex items-center gap-2"><IndianRupee/>Order Summary</CardTitle>
             <CardDescription>Review the items in your cart.</CardDescription>
           </CardHeader>
           <CardContent>
@@ -100,12 +100,12 @@ export default function CheckoutPage() {
                         <p className="text-sm text-muted-foreground">{item.author}</p>
                       </div>
                   </div>
-                  <p className="font-semibold">${item.price.toFixed(2)}</p>
+                  <p className="font-semibold">₹{item.price.toFixed(2)}</p>
                 </div>
               ))}
               <div className="border-t pt-4 mt-4 flex justify-between items-center text-lg font-bold">
                 <p>Total</p>
-                <p>${totalPrice.toFixed(2)}</p>
+                <p>₹{totalPrice.toFixed(2)}</p>
               </div>
             </div>
           </CardContent>

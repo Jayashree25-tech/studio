@@ -28,7 +28,7 @@ export function Cart() {
                   />
                   <div className="flex-grow">
                     <p className="font-medium">{item.title}</p>
-                    <p className="text-sm text-muted-foreground">${item.price.toFixed(2)}</p>
+                    <p className="text-sm text-muted-foreground">₹{item.price.toFixed(2)}</p>
                   </div>
                   <Button
                     variant="ghost"
@@ -45,7 +45,7 @@ export function Cart() {
           <div className="mt-auto border-t pt-4">
             <div className="flex justify-between items-center font-bold text-lg mb-4">
               <span>Total:</span>
-              <span>${totalPrice.toFixed(2)}</span>
+              <span>₹{totalPrice.toFixed(2)}</span>
             </div>
             <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
               <Link href="/checkout">Proceed to Checkout</Link>
