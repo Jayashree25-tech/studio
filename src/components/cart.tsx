@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -5,7 +6,7 @@ import Link from "next/link";
 import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import { Trash2, ShoppingCart } from "lucide-react";
 
 export function Cart() {
@@ -28,7 +29,10 @@ export function Cart() {
                   />
                   <div className="flex-grow">
                     <p className="font-medium">{item.title}</p>
-                    <p className="text-sm text-muted-foreground">₹{item.price.toFixed(2)}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm text-muted-foreground">₹{item.price.toFixed(2)}</p>
+                      <Badge variant={item.purchaseType === 'buy' ? 'secondary' : 'default'} className="capitalize">{item.purchaseType}</Badge>
+                    </div>
                   </div>
                   <Button
                     variant="ghost"

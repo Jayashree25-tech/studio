@@ -1,13 +1,14 @@
+
 "use client";
 
 import type { ReactNode } from "react";
-import { createContext, useState, useEffect } from "react";
-import type { Book } from "@/lib/types";
+import { createContext, useState, useEffect, useMemo } from "react";
+import type { Book, CartItem } from "@/lib/types";
 
 interface CartContextType {
-  items: Book[];
-  addToCart: (book: Book) => void;
-  removeFromCart: (bookId: string) => void;
+  items: CartItem[];
+  addToCart: (book: Book, purchaseType: 'rent' | 'buy') => void;
+  removeFromCart: (itemId: string) => void;
   clearCart: () => void;
   cartCount: number;
   totalPrice: number;
@@ -16,7 +17,7 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<Book[]>([]);
+  const [items, setItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
     try {
@@ -34,18 +35,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("cart", JSON.stringify(items));
   }, [items]);
 
-  const addToCart = (book: Book) => {
+  const addToCart = (book: Book, purchaseType: 'rent' | 'buy') => {
     setItems((prevItems) => {
-      // Prevent adding duplicates
-      if (prevItems.find((item) => item.id === book.id)) {
+      const existingItem = prevItems.find(
+        (item) => item.id === book.id && item.purchaseType === purchaseType
+      );
+      if (existingItem) {
         return prevItems;
       }
-      return [...prevItems, book];
+      
+      const price = purchaseType === 'rent' ? book.rentPrice : book.buyPrice;
+      const cartItem: CartItem = { ...book, purchaseType, price, id: `${book.id}-${purchaseType}` };
+      
+      return [...prevItems, cartItem];
     });
   };
 
-  const removeFromCart = (bookId: string) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== bookId));
+  const removeFromCart = (itemId: string) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
 
   const clearCart = () => {
@@ -53,7 +60,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const cartCount = items.length;
-  const totalPrice = items.reduce((total, item) => total + item.price, 0);
+  const totalPrice = useMemo(() => items.reduce((total, item) => total + item.price, 0), [items]);
 
   return (
     <CartContext.Provider

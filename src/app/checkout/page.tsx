@@ -1,9 +1,11 @@
+
 "use client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Form,
   FormControl,
@@ -53,7 +55,7 @@ export default function CheckoutPage() {
   function onSubmit() {
     toast({
       title: "Payment Successful!",
-      description: "Your eBooks are now available for rent. Thank you for your order.",
+      description: "Your books are now available. Thank you for your order.",
     });
     clearCart();
     router.push("/books");
@@ -66,7 +68,7 @@ export default function CheckoutPage() {
         <Card className="w-full shadow-lg bg-card/80 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><Home />Billing Information</CardTitle>
-            <CardDescription>Enter your billing and payment details to complete the rental.</CardDescription>
+            <CardDescription>Enter your billing and payment details to complete the transaction.</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -113,21 +115,21 @@ export default function CheckoutPage() {
                 </div>
 
                 <Button type="submit" className="w-full mt-4 bg-accent hover:bg-accent/90 text-accent-foreground">
-                  Pay ₹{totalPrice.toFixed(2)} for Rental
+                  Pay ₹{totalPrice.toFixed(2)}
                 </Button>
               </form>
             </Form>
              <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
                 <h4 className="font-semibold text-foreground/90 mb-2">Rental Policy</h4>
                 <p className="text-sm text-muted-foreground">
-                  All eBook rentals are for a period of 30 days. Please ensure you complete your reading within this timeframe. The rental period starts from the moment of payment.
+                  All eBook rentals are for a period of 30 days. Please ensure you complete your reading within this timeframe. The rental period starts from the moment of payment. Purchased books are yours to keep permanently.
                 </p>
               </div>
           </CardContent>
         </Card>
         <Card className="w-full shadow-lg bg-card/80 backdrop-blur-sm">
            <CardHeader>
-            <CardTitle className="flex items-center gap-2"><IndianRupee/>Rental Summary</CardTitle>
+            <CardTitle className="flex items-center gap-2"><IndianRupee/>Order Summary</CardTitle>
             <CardDescription>Review the items in your cart.</CardDescription>
           </CardHeader>
           <CardContent>
@@ -141,7 +143,10 @@ export default function CheckoutPage() {
                         <p className="text-sm text-muted-foreground">{item.author}</p>
                       </div>
                   </div>
-                  <p className="font-semibold">₹{item.price.toFixed(2)}</p>
+                  <div className="text-right">
+                    <p className="font-semibold">₹{item.price.toFixed(2)}</p>
+                    <Badge variant={item.purchaseType === 'buy' ? 'secondary' : 'default'} className="capitalize text-xs">{item.purchaseType}</Badge>
+                  </div>
                 </div>
               ))}
               <div className="border-t pt-4 mt-4 flex justify-between items-center text-lg font-bold">

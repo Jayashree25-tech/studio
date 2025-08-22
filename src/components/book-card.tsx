@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -5,7 +6,7 @@ import type { Book } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useCart } from "@/hooks/use-cart";
-import { ShoppingCart, Check } from "lucide-react";
+import { ShoppingCart, Check, Tag } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface BookCardProps {
@@ -15,13 +16,16 @@ interface BookCardProps {
 export function BookCard({ book }: BookCardProps) {
   const { addToCart, items } = useCart();
   const { toast } = useToast();
-  const isInCart = items.some(item => item.id === book.id);
+  
+  const isRentInCart = items.some(item => item.id === `${book.id}-rent`);
+  const isBuyInCart = items.some(item => item.id === `${book.id}-buy`);
 
-  const handleAddToCart = () => {
-    addToCart(book);
+  const handleAddToCart = (purchaseType: 'rent' | 'buy') => {
+    const price = purchaseType === 'rent' ? book.rentPrice : book.buyPrice;
+    addToCart(book, purchaseType);
     toast({
       title: "Added to cart!",
-      description: `"${book.title}" has been added to your cart.`,
+      description: `"${book.title}" has been added for ${purchaseType}.`,
     });
   };
 
@@ -41,12 +45,21 @@ export function BookCard({ book }: BookCardProps) {
         <CardTitle className="text-lg font-headline leading-tight mb-1">{book.title}</CardTitle>
         <CardDescription className="text-sm">{book.author}</CardDescription>
       </CardContent>
-      <CardFooter className="p-4 flex justify-between items-center">
-        <p className="font-bold text-lg text-primary">₹{book.price.toFixed(2)}</p>
-        <Button onClick={handleAddToCart} disabled={isInCart} variant={isInCart ? "outline" : "default"} size="sm" className="bg-accent hover:bg-accent/90 disabled:bg-primary/80">
-          {isInCart ? <Check className="mr-2 h-4 w-4" /> : <ShoppingCart className="mr-2 h-4 w-4" />}
-          {isInCart ? 'Added' : 'Rent'}
-        </Button>
+      <CardFooter className="p-4 flex flex-col items-start gap-2">
+        <div className="w-full flex justify-between items-center">
+            <p className="font-bold text-lg text-primary">Rent: ₹{book.rentPrice.toFixed(2)}</p>
+            <Button onClick={() => handleAddToCart('rent')} disabled={isRentInCart} variant={isRentInCart ? "outline" : "default"} size="sm" className="bg-accent hover:bg-accent/90 disabled:bg-primary/80">
+                {isRentInCart ? <Check className="mr-2 h-4 w-4" /> : <ShoppingCart className="mr-2 h-4 w-4" />}
+                {isRentInCart ? 'Added' : 'Rent'}
+            </Button>
+        </div>
+        <div className="w-full flex justify-between items-center">
+             <p className="font-bold text-lg text-primary">Buy: ₹{book.buyPrice.toFixed(2)}</p>
+            <Button onClick={() => handleAddToCart('buy')} disabled={isBuyInCart} variant={isBuyInCart ? "outline" : "secondary"} size="sm" >
+                {isBuyInCart ? <Check className="mr-2 h-4 w-4" /> : <Tag className="mr-2 h-4 w-4" />}
+                {isBuyInCart ? 'Added' : 'Buy'}
+            </Button>
+        </div>
       </CardFooter>
     </Card>
   );
