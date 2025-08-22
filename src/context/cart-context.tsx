@@ -9,6 +9,7 @@ interface CartContextType {
   items: CartItem[];
   addToCart: (book: Book, purchaseType: 'rent' | 'buy') => void;
   removeFromCart: (itemId: string) => void;
+  updateItemRentalPeriod: (itemId: string, rentalDays: number) => void;
   clearCart: () => void;
   cartCount: number;
   totalPrice: number;
@@ -47,12 +48,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const price = purchaseType === 'rent' ? book.rentPrice : book.buyPrice;
       const cartItem: CartItem = { ...book, purchaseType, price, id: `${book.id}-${purchaseType}` };
       
+      if (purchaseType === 'rent') {
+        cartItem.rentalDays = 30; // Default rental period
+      }
+
       return [...prevItems, cartItem];
     });
   };
 
   const removeFromCart = (itemId: string) => {
     setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  };
+  
+  const updateItemRentalPeriod = (itemId: string, rentalDays: number) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, rentalDays } : item
+      )
+    );
   };
 
   const clearCart = () => {
@@ -64,7 +77,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, addToCart, removeFromCart, clearCart, cartCount, totalPrice }}
+      value={{ items, addToCart, removeFromCart, updateItemRentalPeriod, clearCart, cartCount, totalPrice }}
     >
       {children}
     </CartContext.Provider>

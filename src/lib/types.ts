@@ -14,4 +14,5 @@ export interface Book {
 export interface CartItem extends Book {
   purchaseType: 'rent' | 'buy';
   price: number;
+  rentalDays?: number;
 }

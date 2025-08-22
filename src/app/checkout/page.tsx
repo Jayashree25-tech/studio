@@ -14,6 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useCart } from "@/hooks/use-cart";
@@ -34,7 +41,7 @@ const formSchema = z.object({
 });
 
 export default function CheckoutPage() {
-  const { items, totalPrice, clearCart } = useCart();
+  const { items, totalPrice, clearCart, updateItemRentalPeriod } = useCart();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -131,17 +138,32 @@ export default function CheckoutPage() {
                 <div className="space-y-4">
                 {items.map(item => (
                     <div key={item.id} className="flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                        <Image src={item.coverImage} alt={item.title} width={40} height={60} className="rounded-sm" />
-                        <div>
-                            <p className="font-medium">{item.title}</p>
-                            <p className="text-sm text-muted-foreground">{item.author}</p>
-                        </div>
-                    </div>
-                    <div className="text-right">
-                        <p className="font-semibold">₹{item.price.toFixed(2)}</p>
-                        <Badge variant={item.purchaseType === 'buy' ? 'secondary' : 'default'} className="capitalize text-xs">{item.purchaseType}</Badge>
-                    </div>
+                      <div className="flex items-center gap-3">
+                          <Image src={item.coverImage} alt={item.title} width={40} height={60} className="rounded-sm" />
+                          <div>
+                              <p className="font-medium">{item.title}</p>
+                              <p className="text-sm text-muted-foreground">{item.author}</p>
+                          </div>
+                      </div>
+                      <div className="text-right">
+                          <p className="font-semibold">₹{item.price.toFixed(2)}</p>
+                          <div className="flex items-center gap-2">
+                            <Badge variant={item.purchaseType === 'buy' ? 'secondary' : 'default'} className="capitalize text-xs">{item.purchaseType}</Badge>
+                            {item.purchaseType === 'rent' && (
+                               <Select 
+                                value={String(item.rentalDays || 30)} 
+                                onValueChange={(value) => updateItemRentalPeriod(item.id, parseInt(value))}>
+                                <SelectTrigger className="w-[100px] h-7 text-xs">
+                                  <SelectValue placeholder="Days" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="15">15 days</SelectItem>
+                                  <SelectItem value="30">30 days</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            )}
+                          </div>
+                      </div>
                     </div>
                 ))}
                 <div className="border-t pt-4 mt-4 flex justify-between items-center text-lg font-bold">
@@ -157,7 +179,7 @@ export default function CheckoutPage() {
                 </CardHeader>
                 <CardContent>
                     <p className="text-sm text-muted-foreground">
-                    All eBook rentals are for a period of <strong>30 days</strong>. The rental period starts from the moment of payment. Purchased books are yours to keep permanently.
+                    You can select your desired rental period for each eBook. The rental period starts from the moment of payment. Purchased books are yours to keep permanently.
                     </p>
                 </CardContent>
             </Card>
