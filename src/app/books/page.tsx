@@ -5,7 +5,6 @@ import { books } from "@/lib/data";
 import type { Book } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { BookCard } from "@/components/book-card";
-import { RecommendationEngine } from "@/components/recommendation-engine";
 import { Search } from "lucide-react";
 import {
   Select,
@@ -33,7 +32,7 @@ export default function BooksPage() {
     });
     setFilteredBooks(results);
 
-    // Save search term to localStorage for AI recommendation
+    // Save search term to localStorage
     if (searchTerm.trim().length > 2) {
       try {
         const history = JSON.parse(localStorage.getItem("searchHistory") || "[]");
@@ -76,8 +75,6 @@ export default function BooksPage() {
         </div>
       </div>
       
-      <RecommendationEngine />
-
       {filteredBooks.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredBooks.map((book) => (
