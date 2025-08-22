@@ -1,0 +1,53 @@
+"use client";
+
+import Image from "next/image";
+import type { Book } from "@/lib/types";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useCart } from "@/hooks/use-cart";
+import { ShoppingCart, Check } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+interface BookCardProps {
+  book: Book;
+}
+
+export function BookCard({ book }: BookCardProps) {
+  const { addToCart, items } = useCart();
+  const { toast } = useToast();
+  const isInCart = items.some(item => item.id === book.id);
+
+  const handleAddToCart = () => {
+    addToCart(book);
+    toast({
+      title: "Added to cart!",
+      description: `"${book.title}" has been added to your cart.`,
+    });
+  };
+
+  return (
+    <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-card/60">
+      <CardHeader className="p-0">
+        <Image
+          src={book.coverImage}
+          alt={`Cover of ${book.title}`}
+          width={300}
+          height={450}
+          className="w-full h-auto object-cover aspect-[2/3]"
+          data-ai-hint={book.data_ai_hint}
+        />
+      </CardHeader>
+      <CardContent className="p-4 flex-grow">
+        <CardTitle className="text-lg font-headline leading-tight mb-1">{book.title}</CardTitle>
+        <CardDescription className="text-sm">{book.author}</CardDescription>
+      </CardContent>
+      <CardFooter className="p-4 flex justify-between items-center">
+        <p className="font-bold text-lg text-primary">${book.price.toFixed(2)}</p>
+        <Button onClick={handleAddToCart} disabled={isInCart} variant={isInCart ? "outline" : "default"} size="sm" className="bg-accent hover:bg-accent/90 disabled:bg-primary/80">
+          {isInCart ? <Check className="mr-2 h-4 w-4" /> : <ShoppingCart className="mr-2 h-4 w-4" />}
+          {isInCart ? 'Added' : 'Add to Cart'}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+}
