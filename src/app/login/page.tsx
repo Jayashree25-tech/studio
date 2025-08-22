@@ -17,6 +17,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { useAuth } from "@/hooks/use-auth";
 import { useRouter } from "next/navigation";
 import { UserPlus } from "lucide-react";
+import { db } from "@/lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { useToast } from "@/hooks/use-toast";
+
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -30,6 +34,7 @@ const formSchema = z.object({
 export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,9 +44,26 @@ export default function LoginPage() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    login(values.name);
-    router.push("/books");
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await addDoc(collection(db, "users"), {
+        name: values.name,
+        phone: values.phone,
+      });
+      login(values.name);
+      toast({
+        title: "Success!",
+        description: "Your information has been saved.",
+      });
+      router.push("/books");
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      toast({
+        title: "Error",
+        description: "There was an error saving your information.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (

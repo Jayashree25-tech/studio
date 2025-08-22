@@ -15,7 +15,7 @@ export default function Home() {
         </p>
         <div className="flex gap-4">
           <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-            <Link href="/login-page">
+            <Link href="/login">
               Login
             </Link>
           </Button>

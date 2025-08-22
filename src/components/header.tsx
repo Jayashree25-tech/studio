@@ -64,7 +64,7 @@ export function Header() {
             </div>
           ) : (
             <Button asChild variant="ghost" className="gap-2">
-              <Link href="/login-page">
+              <Link href="/login">
                 <User className="h-5 w-5" />
                 <span className="hidden sm:inline">Login</span>
               </Link>
