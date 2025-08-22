@@ -13,11 +13,18 @@ export default function Home() {
         <p className="text-lg text-muted-foreground mb-8">
           Discover your next favorite book from our curated collection.
         </p>
-        <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-          <Link href="/catalog">
-            Start Browsing
-          </Link>
-        </Button>
+        <div className="flex gap-4">
+          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+            <Link href="/login-page">
+              Login
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/catalog">
+              Browse as Guest
+            </Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
