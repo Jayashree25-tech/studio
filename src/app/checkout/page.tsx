@@ -45,7 +45,7 @@ export default function CheckoutPage() {
   function onSubmit() {
     toast({
       title: "Payment Successful!",
-      description: "Your eBooks are now available. Thank you for your purchase.",
+      description: "Your eBooks are now available for rent. Thank you for your order.",
     });
     clearCart();
     router.push("/books");
@@ -58,7 +58,7 @@ export default function CheckoutPage() {
         <Card className="w-full shadow-lg bg-card/80 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><CreditCard />Payment Details</CardTitle>
-            <CardDescription>Enter your payment information to complete the purchase.</CardDescription>
+            <CardDescription>Enter your payment information to complete the rental.</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -78,21 +78,21 @@ export default function CheckoutPage() {
                   )} />
                 </div>
                 <Button type="submit" className="w-full mt-4 bg-accent hover:bg-accent/90 text-accent-foreground">
-                  Pay ₹{totalPrice.toFixed(2)}
+                  Pay ₹{totalPrice.toFixed(2)} for Rental
                 </Button>
               </form>
             </Form>
              <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
-                <h4 className="font-semibold text-foreground/90 mb-2">Return Policy</h4>
+                <h4 className="font-semibold text-foreground/90 mb-2">Rental Policy</h4>
                 <p className="text-sm text-muted-foreground">
-                  You can return any eBook within 14 days of purchase for a full refund, provided you have not read more than 10% of the book. No penalty fees will be applied if returned within the specified period.
+                  All eBook rentals are for a period of 30 days. Please ensure you complete your reading within this timeframe. The rental period starts from the moment of payment.
                 </p>
               </div>
           </CardContent>
         </Card>
         <Card className="w-full shadow-lg bg-card/80 backdrop-blur-sm">
            <CardHeader>
-            <CardTitle className="flex items-center gap-2"><IndianRupee/>Order Summary</CardTitle>
+            <CardTitle className="flex items-center gap-2"><IndianRupee/>Rental Summary</CardTitle>
             <CardDescription>Review the items in your cart.</CardDescription>
           </CardHeader>
           <CardContent>
