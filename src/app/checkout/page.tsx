@@ -19,7 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { useCart } from "@/hooks/use-cart";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { CreditCard, IndianRupee, Home, Building, Landmark } from "lucide-react";
+import { CreditCard, IndianRupee, Home, Building, Landmark, Info } from "lucide-react";
 import Image from "next/image";
 
 const formSchema = z.object({
@@ -119,43 +119,49 @@ export default function CheckoutPage() {
                 </Button>
               </form>
             </Form>
-             <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
-                <h4 className="font-semibold text-foreground/90 mb-2">Rental Policy</h4>
-                <p className="text-sm text-muted-foreground">
-                  All eBook rentals are for a period of 30 days. Please ensure you complete your reading within this timeframe. The rental period starts from the moment of payment. Purchased books are yours to keep permanently.
-                </p>
-              </div>
           </CardContent>
         </Card>
-        <Card className="w-full shadow-lg bg-card/80 backdrop-blur-sm">
-           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><IndianRupee/>Order Summary</CardTitle>
-            <CardDescription>Review the items in your cart.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {items.map(item => (
-                <div key={item.id} className="flex justify-between items-center">
-                   <div className="flex items-center gap-3">
-                      <Image src={item.coverImage} alt={item.title} width={40} height={60} className="rounded-sm" />
-                      <div>
-                        <p className="font-medium">{item.title}</p>
-                        <p className="text-sm text-muted-foreground">{item.author}</p>
-                      </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold">₹{item.price.toFixed(2)}</p>
-                    <Badge variant={item.purchaseType === 'buy' ? 'secondary' : 'default'} className="capitalize text-xs">{item.purchaseType}</Badge>
-                  </div>
+        <div className="flex flex-col gap-8">
+            <Card className="w-full shadow-lg bg-card/80 backdrop-blur-sm">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><IndianRupee/>Order Summary</CardTitle>
+                <CardDescription>Review the items in your cart.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-4">
+                {items.map(item => (
+                    <div key={item.id} className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                        <Image src={item.coverImage} alt={item.title} width={40} height={60} className="rounded-sm" />
+                        <div>
+                            <p className="font-medium">{item.title}</p>
+                            <p className="text-sm text-muted-foreground">{item.author}</p>
+                        </div>
+                    </div>
+                    <div className="text-right">
+                        <p className="font-semibold">₹{item.price.toFixed(2)}</p>
+                        <Badge variant={item.purchaseType === 'buy' ? 'secondary' : 'default'} className="capitalize text-xs">{item.purchaseType}</Badge>
+                    </div>
+                    </div>
+                ))}
+                <div className="border-t pt-4 mt-4 flex justify-between items-center text-lg font-bold">
+                    <p>Total</p>
+                    <p>₹{totalPrice.toFixed(2)}</p>
                 </div>
-              ))}
-              <div className="border-t pt-4 mt-4 flex justify-between items-center text-lg font-bold">
-                <p>Total</p>
-                <p>₹{totalPrice.toFixed(2)}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+                </div>
+            </CardContent>
+            </Card>
+            <Card className="w-full shadow-lg bg-card/80 backdrop-blur-sm">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><Info />Rental Policy</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-sm text-muted-foreground">
+                    All eBook rentals are for a period of <strong>30 days</strong>. The rental period starts from the moment of payment. Purchased books are yours to keep permanently.
+                    </p>
+                </CardContent>
+            </Card>
+        </div>
       </div>
     </div>
   );
