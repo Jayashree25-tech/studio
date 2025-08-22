@@ -8,7 +8,7 @@ export const books: Book[] = [
     price: 14.99,
     coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
     data_ai_hint: 'library night',
-    genre: 'Fantasy',
+    genre: 'Adults',
     description: 'Between life and death there is a library, and within that library, the shelves go on forever. Every book provides a chance to try another life you could have lived.'
   },
   {
@@ -18,7 +18,7 @@ export const books: Book[] = [
     price: 18.50,
     coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
     data_ai_hint: 'space ship',
-    genre: 'Science Fiction',
+    genre: 'Adventure',
     description: 'A lone astronaut must save the earth from disaster in this cinematic thriller full of suspense, humor, and fascinating science.'
   },
   {
@@ -28,7 +28,7 @@ export const books: Book[] = [
     price: 16.00,
     coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
     data_ai_hint: 'sun robot',
-    genre: 'Science Fiction',
+    genre: 'Adults',
     description: 'The story of Klara, an Artificial Friend with outstanding observational qualities, who, from her place in the store, carefully watches the behavior of those who come in to browse.'
   },
   {
@@ -38,7 +38,7 @@ export const books: Book[] = [
     price: 15.99,
     coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
     data_ai_hint: 'dust storm',
-    genre: 'Historical Fiction',
+    genre: 'Adults',
     description: 'An epic novel of love and heroism and hope, set against the backdrop of one of America’s most defining eras—the Great Depression.'
   },
   {
@@ -58,7 +58,7 @@ export const books: Book[] = [
     price: 10.99,
     coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
     data_ai_hint: 'marsh sunset',
-    genre: 'Mystery',
+    genre: 'Adults',
     description: 'A heartbreaking coming-of-age story and a surprising tale of possible murder. Owens reminds us that we are forever shaped by the children we once were.'
   },
    {
@@ -68,7 +68,7 @@ export const books: Book[] = [
     price: 19.99,
     coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
     data_ai_hint: 'desert planet',
-    genre: 'Science Fiction',
+    genre: 'Adventure',
     description: 'Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the "spice" melange.',
   },
   {
@@ -78,7 +78,47 @@ export const books: Book[] = [
     price: 13.50,
     coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
     data_ai_hint: 'woman portrait',
-    genre: 'Mystery',
+    genre: 'Adults',
     description: 'A shocking psychological thriller of a woman’s act of violence against her husband—and of the therapist obsessed with uncovering her motive.',
+  },
+  {
+    id: '9',
+    title: 'The Very Hungry Caterpillar',
+    author: 'Eric Carle',
+    price: 8.99,
+    coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
+    data_ai_hint: 'caterpillar colorful',
+    genre: 'Children',
+    description: 'A much-loved classic, The Very Hungry Caterpillar has won over millions of readers with its vivid and colourful collage illustrations and its deceptively simple, hopeful story.'
+  },
+  {
+    id: '10',
+    title: 'I Am Malala',
+    author: 'Malala Yousafzai',
+    price: 11.99,
+    coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
+    data_ai_hint: 'girl portrait',
+    genre: 'Autobiography',
+    description: 'The remarkable tale of a family uprooted by global terrorism, of the fight for girls\' education, of a father who, himself a school owner, championed and encouraged his daughter to write and attend school, and of brave parents who have a fierce love for their daughter in a society that prizes sons.'
+  },
+  {
+    id: '11',
+    title: 'Steve Jobs',
+    author: 'Walter Isaacson',
+    price: 21.00,
+    coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
+    data_ai_hint: 'man portrait',
+    genre: 'Biography',
+    description: 'Based on more than forty interviews with Jobs conducted over two years—as well as interviews with more than a hundred family members, friends, adversaries, competitors, and colleagues—Walter Isaacson has written a riveting story of the roller-coaster life and searingly intense personality of a creative entrepreneur whose passion for perfection and ferocious drive revolutionized six industries: personal computers, animated movies, music, phones, tablet computing, and digital publishing.'
+  },
+  {
+    id: '12',
+    title: 'The Hobbit',
+    author: 'J.R.R. Tolkien',
+    price: 14.50,
+    coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
+    data_ai_hint: 'fantasy landscape',
+    genre: 'Adventure',
+    description: 'A great modern classic and the prelude to The Lord of the Rings. Bilbo Baggins is a hobbit who enjoys a comfortable, unambitious life, rarely traveling any farther than his pantry or cellar. But his contentment is disturbed when the wizard Gandalf and a company of dwarves arrive on his doorstep one day to whisk him away on an adventure.'
   }
 ];
