@@ -5,7 +5,7 @@ export const books: Book[] = [
     id: '1',
     title: 'The Midnight Library',
     author: 'Matt Haig',
-    price: 14.99,
+    price: 80.00,
     coverImage: 'https://placehold.co/300x450/a0d2eb/404040',
     data_ai_hint: 'library night',
     genre: 'Adults',
