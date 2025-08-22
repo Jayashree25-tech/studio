@@ -82,6 +82,12 @@ export default function CheckoutPage() {
                 </Button>
               </form>
             </Form>
+             <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
+                <h4 className="font-semibold text-foreground/90 mb-2">Return Policy</h4>
+                <p className="text-sm text-muted-foreground">
+                  You can return any eBook within 14 days of purchase for a full refund, provided you have not read more than 10% of the book. No penalty fees will be applied if returned within the specified period.
+                </p>
+              </div>
           </CardContent>
         </Card>
         <Card className="w-full shadow-lg bg-card/80 backdrop-blur-sm">
